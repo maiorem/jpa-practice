@@ -15,6 +15,7 @@
 
     <dependencies>
 
+        <!--JPA Hibernate-->
         <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager -->
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -22,7 +23,7 @@
             <version>5.6.3.Final</version>
         </dependency>
 
-
+        <!--H2 Database-->
         <!-- https://mvnrepository.com/artifact/com.h2database/h2 -->
         <dependency>
             <groupId>com.h2database</groupId>
