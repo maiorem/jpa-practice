@@ -7,6 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import javax.transaction.Transactional;
 import java.util.Optional;
@@ -99,6 +100,29 @@ public class MemoRepositoryTests {
         for (Memo memo : result.getContent()) {
             System.out.println(memo); // 현재 페이지 데이터 출력
         }
+
+    }
+
+    // 정렬 테스트
+    @Test
+    public void testSort() {
+        Sort sort1 = Sort.by("mno").descending(); //인덱스 역순 정렬
+        Pageable pageable = PageRequest.of(0, 10, sort1);
+        Page<Memo> result = memoRepository.findAll(pageable);
+        result.get().forEach(memo -> {
+            System.out.println(memo); // 역순 정렬 후 현재페이지 출력
+        });
+
+        System.out.println("=======================SORT 2=====================");
+        Sort sort2 = Sort.by("memoText").ascending(); //메모텍스트 정렬
+        Sort sortAll = sort1.and(sort2); // sort1 이자 sort2로 정렬
+
+        Pageable pageable1 = PageRequest.of(0, 10, sortAll);
+        Page<Memo> result2 = memoRepository.findAll(pageable1);
+
+        result2.get().forEach(memo -> {
+            System.out.println(memo); // 인덱슨 역순이면서 내용 정렬
+        });
 
     }
 
