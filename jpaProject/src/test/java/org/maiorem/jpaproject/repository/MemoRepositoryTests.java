@@ -8,8 +8,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.test.annotation.Commit;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
@@ -124,6 +126,39 @@ public class MemoRepositoryTests {
             System.out.println(memo); // 인덱슨 역순이면서 내용 정렬
         });
 
+    }
+
+    // 쿼리 메서드 테스트
+    @Test
+    public void testQueryMethods() {
+        List<Memo> list = memoRepository.findByMnoBetweenOrderByMnoDesc(70L, 80L);
+
+        for (Memo memo: list) {
+            System.out.println(memo);
+        }
+    }
+
+    // 쿼리 메서드 페이징 테스트
+    @Test
+    public void testQueryMethodWithPageable() {
+
+        Pageable pageable = PageRequest.of(0, 10, Sort.by("mno").descending());
+
+        Page<Memo> result = memoRepository.findByMnoBetween(10L, 50L, pageable);
+
+        result.get().forEach(memo -> {
+            System.out.println(memo);
+        });
+    }
+    
+    // 쿼리 메서드 특정 데이터 삭제 테스트
+    @Commit
+    @Transactional
+    @Test
+    public void testDeleteQueryMethods() {
+        
+        // mno가 10보다 작은 데이터 삭제
+        memoRepository.deleteMemoByMnoLessThan(10L);
     }
 
 }
