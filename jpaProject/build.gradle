@@ -9,7 +9,7 @@ plugins {
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
     id 'war'
-    id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
+    id 'com.ewerk.gradle.plugins.querydsl' version '1.0.10'
 }
 
 group = 'org.maiorem'
@@ -46,24 +46,18 @@ dependencies {
     implementation group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-java8time', version: '3.0.4.RELEASE'
 
     // QueryDSL
-
     implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
-
     annotationProcessor(
-
             "javax.persistence:javax.persistence-api",
-
             "javax.annotation:javax.annotation-api",
+            "com.querydsl:querydsl-apt:${queryDslVersion}:jpa"
+    )
 
-            "com.querydsl:querydsl-apt:${queryDslVersion}:jpa")
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 
-}
-sourceSets {
-    main {
-        java {
-            srcDirs = ["$projectDir/src/main/java", "$projectDir/build/generated"]
-        }
-    }
+    implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.4.4'
+    // https://mvnrepository.com/artifact/net.coobird/thumbnailator
+    implementation group: 'net.coobird', name: 'thumbnailator', version: '0.4.14'
 }
 
 test {
@@ -89,4 +83,13 @@ configurations {
 compileQuerydsl {
     options.annotationProcessorPath = configurations.querydsl
 }
+
+compileJava.dependsOn(compileQuerydsl)
+
+clean {
+    delete querydslDir
+}
+
+
 //querydsl 추가 끝
+
