@@ -16,9 +16,11 @@ public class JpaMain {
 
         try {
             // insert data
+            // 비영속
 //            Member member = new Member();
 //            member.setId(1L);
 //            member.setName("Hello");
+            //영속
 //            em.persist(member);
 
             // update data
@@ -26,14 +28,22 @@ public class JpaMain {
 //            findMember.setName("HelloJpa");
 
             // JPQL
-            List<Member> result = em.createQuery("select m from Member as m", Member.class)
-                    .setFirstResult(1)
-                    .setMaxResults(10) //페이징
-                    .getResultList();
-            
-            for (Member member : result) {
-                System.out.println("member.name = " + member.getName());
-            }
+//            List<Member> result = em.createQuery("select m from Member as m", Member.class)
+//                    .setFirstResult(1)
+//                    .setMaxResults(10) //페이징
+//                    .getResultList();
+//
+//            for (Member member : result) {
+//                System.out.println("member.name = " + member.getName());
+//            }
+
+            //매핑 테스트
+            Member member = new Member();
+            member.setId(2L);
+            member.setUsername("B");
+            member.setRoleType(RoleType.ADMIN);
+
+            em.persist(member);
 
             tx.commit();
         } catch (Exception e) {
