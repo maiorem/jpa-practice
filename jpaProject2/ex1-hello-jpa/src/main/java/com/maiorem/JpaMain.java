@@ -39,9 +39,8 @@ public class JpaMain {
 
             //매핑 테스트
             Member member = new Member();
-            member.setId(2L);
-            member.setUsername("B");
-            member.setRoleType(RoleType.ADMIN);
+//            member.setId(2L);
+            member.setUsername("zzzzzzB");
 
             em.persist(member);
 
