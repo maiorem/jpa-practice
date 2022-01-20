@@ -5,9 +5,9 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
-@SequenceGenerator(name = "member_seq_generator", sequenceName = "member_seq") //시퀀스 생성
+@SequenceGenerator(name = "member_seq_generator", sequenceName = "member_seq", initialValue = 1, allocationSize = 50) //시퀀스 생성
 public class Member {
-
+// allocationsSize : 미리 디비에 갯수만큼 올려놓고 메모리에서 꺼내 씀
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "member_seq_generator")
     private Long id;
@@ -55,4 +55,11 @@ public class Member {
         this.username = username;
     }
 
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
 }

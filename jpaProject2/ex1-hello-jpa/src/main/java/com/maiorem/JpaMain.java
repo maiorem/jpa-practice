@@ -37,12 +37,19 @@ public class JpaMain {
 //                System.out.println("member.name = " + member.getName());
 //            }
 
-            //매핑 테스트
-            Member member = new Member();
-//            member.setId(2L);
-            member.setUsername("zzzzzzB");
+            //시퀀스 테스트
+            Member member1 = new Member();
+            member1.setUsername("A");
 
-            em.persist(member);
+            Member member2 = new Member();
+            member2.setUsername("B");
+
+            Member member3 = new Member();
+            member3.setUsername("C");
+
+            em.persist(member1); // 시퀀스 allocationSize 만큼 호출
+            em.persist(member2); // 메모리 호출
+            em.persist(member3); // 메모리 호출
 
             tx.commit();
         } catch (Exception e) {
