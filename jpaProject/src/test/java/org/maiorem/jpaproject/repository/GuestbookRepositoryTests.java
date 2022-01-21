@@ -49,6 +49,7 @@ public class GuestbookRepositoryTests {
 
     }
 
+    //WHERE title LIKE '% keyword %'
     @Test
     public void testQuery1() {
 
