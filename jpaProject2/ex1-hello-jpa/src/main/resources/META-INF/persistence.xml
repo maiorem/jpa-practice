@@ -15,7 +15,7 @@
             <property name="hibernate.use_sql_comments" value="true" />
             <property name="hibernate.id.new_generator_mappings" value="true" />
 <!--            운영 장비에선 절대 스키마 자동 생성 create, create-drop, update를 사용하면 안됨-->
-<!--            validate는 엔티티와 테이블                                                                         매핑 검증-->
+<!--            validate는 엔티티와 테이블 매핑 검증-->
             <property name="hibernate.hbm2ddl.auto" value="create" />
         </properties>
     </persistence-unit>

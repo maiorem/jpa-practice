@@ -69,8 +69,8 @@ public class JpaMain {
 //            Team findTeam = em.find(Team.class, findTeamId);
 
 
-            //단방향 연관관계 매핑2
-            //저장
+//            //단방향 연관관계 매핑2
+//            //저장
             Team team = new Team();
             team.setName("TeamA");
             em.persist(team);
@@ -82,13 +82,20 @@ public class JpaMain {
 
             em.flush();
             em.clear();
+//
+//            //단방향 검색
+//            Member2 findMember = em.find(Member2.class, memebr.getId());
+//            Team findTeam = findMember.getTeam();
+//
+//            System.out.println("findTeam = "+findTeam.getName());
 
-            //검색
+            //양방향 연관관계 매핑
             Member2 findMember = em.find(Member2.class, memebr.getId());
-            Team findTeam = findMember.getTeam();
+            List<Member2> members = findMember.getTeam().getMembers();
 
-            System.out.println("findTeam = "+findTeam.getName());
-
+            for (Member2 m: members) {
+                System.out.println("m = " +m.getName());
+            }
 
             tx.commit();
         } catch (Exception e) {
