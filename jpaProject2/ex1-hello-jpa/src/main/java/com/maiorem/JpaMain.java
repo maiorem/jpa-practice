@@ -38,18 +38,28 @@ public class JpaMain {
 //            }
 
             //시퀀스 테스트
-            Member member1 = new Member();
-            member1.setUsername("A");
+//            Member member1 = new Member();
+//            member1.setUsername("A");
+//
+//            Member member2 = new Member();
+//            member2.setUsername("B");
+//
+//            Member member3 = new Member();
+//            member3.setUsername("C");
+//
+//            em.persist(member1); // 시퀀스 allocationSize 만큼 호출
+//            em.persist(member2); // 메모리 호출
+//            em.persist(member3); // 메모리 호출
 
-            Member member2 = new Member();
-            member2.setUsername("B");
+            //단방향 연관관계 매핑
+            Team team = new Team();
+            team.setName("TeamA");
+            em.persist(team);
 
-            Member member3 = new Member();
-            member3.setUsername("C");
-
-            em.persist(member1); // 시퀀스 allocationSize 만큼 호출
-            em.persist(member2); // 메모리 호출
-            em.persist(member3); // 메모리 호출
+            Member2 memebr = new Member2();
+            memebr.setName("member1");
+            memebr.setTeamId(team.getId());
+            em.persist(memebr);
 
             tx.commit();
         } catch (Exception e) {
