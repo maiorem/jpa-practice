@@ -80,10 +80,15 @@ public class JpaMain {
             memebr.setTeam(team);
             em.persist(memebr);
 
+            em.flush();
+            em.clear();
+
             //검색
             Member2 findMember = em.find(Member2.class, memebr.getId());
             Team findTeam = findMember.getTeam();
-            System.out.println("findTeam = " + findTeam.getName());
+
+            System.out.println("findTeam = "+findTeam.getName());
+
 
             tx.commit();
         } catch (Exception e) {
