@@ -51,15 +51,39 @@ public class JpaMain {
 //            em.persist(member2); // 메모리 호출
 //            em.persist(member3); // 메모리 호출
 
-            //단방향 연관관계 매핑
+//            //단방향 연관관계 매핑
+//            //저장
+//            Team team = new Team();
+//            team.setName("TeamA");
+//            em.persist(team);
+//
+//            Member2 memebr = new Member2();
+//            memebr.setName("member1");
+//            memebr.setTeamId(team.getId());
+//            em.persist(memebr);
+
+//            //검색
+//            Member2 findMember = em.find(Member2.class, memebr.getId());
+//
+//            Long findTeamId = findMember.getTeamId();
+//            Team findTeam = em.find(Team.class, findTeamId);
+
+
+            //단방향 연관관계 매핑2
+            //저장
             Team team = new Team();
             team.setName("TeamA");
             em.persist(team);
 
             Member2 memebr = new Member2();
             memebr.setName("member1");
-            memebr.setTeamId(team.getId());
+            memebr.setTeam(team);
             em.persist(memebr);
+
+            //검색
+            Member2 findMember = em.find(Member2.class, memebr.getId());
+            Team findTeam = findMember.getTeam();
+            System.out.println("findTeam = " + findTeam.getName());
 
             tx.commit();
         } catch (Exception e) {
