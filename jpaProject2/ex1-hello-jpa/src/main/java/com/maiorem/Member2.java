@@ -40,7 +40,10 @@ public class Member2 {
         return team;
     }
 
+    // 자바 관례상의 게터세터가 아니므로 메서드 이름을 바꾸는 것을 권장
     public void setTeam(Team team) {
         this.team = team;
+        //양방향 매핑
+        team.getMembers().add(this);
     }
 }
