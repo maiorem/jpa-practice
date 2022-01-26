@@ -38,18 +38,64 @@ public class JpaMain {
 //            }
 
             //시퀀스 테스트
-            Member member1 = new Member();
-            member1.setUsername("A");
+//            Member member1 = new Member();
+//            member1.setUsername("A");
+//
+//            Member member2 = new Member();
+//            member2.setUsername("B");
+//
+//            Member member3 = new Member();
+//            member3.setUsername("C");
+//
+//            em.persist(member1); // 시퀀스 allocationSize 만큼 호출
+//            em.persist(member2); // 메모리 호출
+//            em.persist(member3); // 메모리 호출
 
-            Member member2 = new Member();
-            member2.setUsername("B");
+//            //단방향 연관관계 매핑
+//            //저장
+//            Team team = new Team();
+//            team.setName("TeamA");
+//            em.persist(team);
+//
+//            Member2 memebr = new Member2();
+//            memebr.setName("member1");
+//            memebr.setTeamId(team.getId());
+//            em.persist(memebr);
 
-            Member member3 = new Member();
-            member3.setUsername("C");
+//            //검색
+//            Member2 findMember = em.find(Member2.class, memebr.getId());
+//
+//            Long findTeamId = findMember.getTeamId();
+//            Team findTeam = em.find(Team.class, findTeamId);
 
-            em.persist(member1); // 시퀀스 allocationSize 만큼 호출
-            em.persist(member2); // 메모리 호출
-            em.persist(member3); // 메모리 호출
+
+//            //단방향 연관관계 매핑2
+//            //저장
+            Team team = new Team();
+            team.setName("TeamA");
+            em.persist(team);
+
+            Member2 memebr = new Member2();
+            memebr.setName("member1");
+            memebr.setTeam(team);
+            em.persist(memebr);
+
+            em.flush();
+            em.clear();
+//
+//            //단방향 검색
+//            Member2 findMember = em.find(Member2.class, memebr.getId());
+//            Team findTeam = findMember.getTeam();
+//
+//            System.out.println("findTeam = "+findTeam.getName());
+
+            //양방향 연관관계 매핑
+            Member2 findMember = em.find(Member2.class, memebr.getId());
+            List<Member2> members = findMember.getTeam().getMembers();
+
+            for (Member2 m: members) {
+                System.out.println("m = " +m.getName());
+            }
 
             tx.commit();
         } catch (Exception e) {
