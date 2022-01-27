@@ -7,7 +7,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
-//페이지와 페이지 수 수집 DTO
+//페이지와 한 페이지의 크기 수집 DTO
 @Builder
 @AllArgsConstructor
 @Data
