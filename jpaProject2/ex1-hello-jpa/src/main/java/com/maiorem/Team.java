@@ -41,4 +41,10 @@ public class Team {
     public void setMembers(List<Member2> members) {
         this.members = members;
     }
+
+//    두 클래스 모두에 연관관계 매핑 메서드가 있으면 위험
+//    public void addMember(Member2 member) {
+//        member.setTeam(this);
+//        members.add(member);
+//    }
 }

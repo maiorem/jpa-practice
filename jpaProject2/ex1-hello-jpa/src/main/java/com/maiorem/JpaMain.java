@@ -80,6 +80,10 @@ public class JpaMain {
             memebr.setTeam(team);
             em.persist(memebr);
 
+            // 두 클래스 모두에 연관관계 매핑 메서드가 있으면 위험.
+            // 양방향 매핑시에는 무한루프 조심
+//            team.addMember(memebr);
+
             em.flush();
             em.clear();
 //
