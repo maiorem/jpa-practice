@@ -1,5 +1,6 @@
-package com.maiorem.jpashop;
+package com.maiorem.jpashop.repository;
 
+import com.maiorem.jpashop.domain.Member;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
