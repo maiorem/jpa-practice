@@ -31,7 +31,7 @@ public class Category {
     //부모
     @ManyToOne
     @JoinColumn(name = "parent_id")
-    private Category parents;
+    private Category parent;
 
     //자식
     @OneToMany(mappedBy = "parent")
