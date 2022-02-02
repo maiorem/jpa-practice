@@ -1,9 +1,12 @@
 package com.maiorem.jpashop.domain.item;
 
+import com.maiorem.jpashop.domain.Category;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE) //상속 타입 : 싱글 테이블 전략
@@ -20,5 +23,9 @@ public abstract class Item {
 
     private int price;
     private int stockQuantity;
+
+    //다대다 연관관계
+    @ManyToMany(mappedBy = "items")
+    private List<Category> categories = new ArrayList<>();
 
 }
