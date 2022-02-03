@@ -29,7 +29,7 @@ public class Category {
 
     //카테고리(계층)구조
     //부모
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id")
     private Category parent;
 

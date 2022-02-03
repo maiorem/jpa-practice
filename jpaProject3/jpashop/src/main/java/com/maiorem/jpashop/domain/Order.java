@@ -19,14 +19,16 @@ public class Order {
 
     //다대일 (여러 주문이 하나의 멤버를 가짐)
     //연관관계의 주인
-    @ManyToOne
+    //*ToOne은 fetch 전략 디폴트가 EAGER 이므로 LAZY로 바꿔줘야 함
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 
+    //OneToMany의 Fetch 디폴트 전략은 LAZY라 바꿀 필요 없음
     @OneToMany(mappedBy = "order")
     private List<OrderItem> orderItems = new ArrayList<>();
 
-    @OneToOne //일대일 관계에서의 연관관계의 주인
+    @OneToOne(fetch = FetchType.LAZY) //일대일 관계에서의 연관관계의 주인
     @JoinColumn(name = "delivery_id")
     private Delivery delivery;
 
