@@ -51,12 +51,12 @@ class MemberServiceTest {
         //when
         memberService.join(member1);
         try {
-            memberService.join(member2); //
+            memberService.join(member2); // 중복회원 예외처리 : 예외가 발생해야 한다
         } catch (IllegalStateException e) {
             return;
         }
         //then
-        fail("Not Work.....");
+        fail("예외가 발생해야 한다!");
 
     }
 
