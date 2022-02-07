@@ -38,10 +38,17 @@ public class OrderItem {
 
 
     //====비즈니스 로직====//
+
+    /**
+     * 주문 취소
+     */
     public void cancel() {
         getItem().addStock(count); //재고수량 원복
     }
 
+    /**
+     * 주문 전체 가격 조회
+     */
     public int getTotalPrice() {
         return getOrderPrice() * getCount();
     }
