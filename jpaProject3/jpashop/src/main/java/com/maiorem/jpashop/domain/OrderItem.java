@@ -25,4 +25,12 @@ public class OrderItem {
     private int orderPrice; //주문가격
     private int count; //주문수량
 
+    //====비즈니스 로직====//
+    public void cancel() {
+        getItem().addStock(count); //재고수량 원복
+    }
+
+    public int getTotalPrice() {
+        return getOrderPrice() * getCount();
+    }
 }
