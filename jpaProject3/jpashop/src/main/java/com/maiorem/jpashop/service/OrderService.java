@@ -42,14 +42,25 @@ public class OrderService {
         Order order = Order.createOrder(member, delivery, orderItem);
 
         //주문 저장
-        orderRepository.save(order);
-        
+        orderRepository.save(order); //cascade 옵션때문에 OrderItem과 Delivery는 저장하지 않더라도 함께 persist 됨
         return order.getId();
 
     }
 
-    //취소
+    /**
+     * 취소
+     */
+    @Transactional
+    public void cancel(Long orderId) {
+        Order order = orderRepository.findOne(orderId);
+        order.cancel();
+    }
 
-    //검색
+    /**
+     * 검색
+     */
+    public Order search(Long orderId) {
+        return orderRepository.findOne(orderId);
+    }
 
 }
