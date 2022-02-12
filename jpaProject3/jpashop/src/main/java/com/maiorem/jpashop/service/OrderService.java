@@ -1,9 +1,6 @@
 package com.maiorem.jpashop.service;
 
-import com.maiorem.jpashop.domain.Delivery;
-import com.maiorem.jpashop.domain.Member;
-import com.maiorem.jpashop.domain.Order;
-import com.maiorem.jpashop.domain.OrderItem;
+import com.maiorem.jpashop.domain.*;
 import com.maiorem.jpashop.domain.item.Item;
 import com.maiorem.jpashop.repository.ItemRepository;
 import com.maiorem.jpashop.repository.MemberRepository;
@@ -61,8 +58,8 @@ public class OrderService {
     /**
      * 검색
      */
-//    public List<Order> findOrders(OrderSearch orderSearch) {
-//        return orderRepository.findAll(orderSearch);
-//    }
+    public List<Order> findOrders(OrderSearch orderSearch) {
+        return orderRepository.findAll(orderSearch);
+    }
 
 }
