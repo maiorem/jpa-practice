@@ -28,7 +28,7 @@ public class OrderRepository {
 
     public List<Order> findAllByString(OrderSearch orderSearch) {
 
-        //=========동적 쿼리 강제 구현 (실무X)============//
+        //========= 동적 쿼리 강제 구현 (실무X) ============//
         String jpql = "select o from Order o join o.member m";
         boolean isFirstCondition = true;
 
@@ -72,7 +72,7 @@ public class OrderRepository {
      */
     public List<Order> findAllByCriteria(OrderSearch orderSearch) {
 
-        //=======JPA 표준 동적 쿼리 (실무X) ========//
+        //======= JPA 표준 동적 쿼리 (실무X) ========//
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Order> cq = cb.createQuery(Order.class);
         Root<Order> o = cq.from(Order.class);
@@ -95,6 +95,9 @@ public class OrderRepository {
         cq.where(cb.and(criteria.toArray(new Predicate[criteria.size()])));
         TypedQuery<Order> query = em.createQuery(cq).setMaxResults(1000);
         return query.getResultList();
-        
+
     }
+    //===========>> 둘 다 유지보수성이 떨어짐
+    //대신 QueryDsl 사용
+    
 }
