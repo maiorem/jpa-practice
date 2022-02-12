@@ -50,13 +50,16 @@ class MemberServiceTest {
 
         //when
         memberService.join(member1);
-        try {
-            memberService.join(member2); // 중복회원 예외처리 : 예외가 발생해야 한다
-        } catch (IllegalStateException e) {
-            return;
-        }
-        //then
-        fail("예외가 발생해야 한다!");
+//        try {
+//            memberService.join(member2); // 중복회원 예외처리 : 예외가 발생해야 한다
+//        } catch (IllegalStateException e) {
+//            return;
+//        }
+//        //then
+//        fail("예외가 발생해야 한다!");
+
+        //when, then => Junit5
+        assertThrows(IllegalStateException.class, () -> memberService.join(member2));
 
     }
 
