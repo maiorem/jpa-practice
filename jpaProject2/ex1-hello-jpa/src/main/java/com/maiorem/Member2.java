@@ -20,6 +20,11 @@ public class Member2 {
 //    @JoinColumn(name = "TEAM_ID")
 //    private Team team;
 
+    //다대일 읽기전용 필드
+    @ManyToOne
+    @JoinColumn(name = "TEAM_ID", insertable = false, updatable = false)
+    private Team team;
+
     public Long getId() {
         return id;
     }
