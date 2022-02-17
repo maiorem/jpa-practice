@@ -1,5 +1,6 @@
 package com.maiorem.jpashop.controller;
 
+import com.maiorem.jpashop.dto.MemberForm;
 import com.maiorem.jpashop.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
