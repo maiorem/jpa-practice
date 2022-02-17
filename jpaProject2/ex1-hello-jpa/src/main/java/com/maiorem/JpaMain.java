@@ -71,35 +71,47 @@ public class JpaMain {
 
 //            //단방향 연관관계 매핑2
 //            //저장
-            Team team = new Team();
-            team.setName("TeamA");
-            em.persist(team);
-
-            Member2 memebr = new Member2();
-            memebr.setName("member1");
-            memebr.setTeam(team);
-            em.persist(memebr);
-
-            // 두 클래스 모두에 연관관계 매핑 메서드가 있으면 위험.
-            // 양방향 매핑시에는 무한루프 조심
-//            team.addMember(memebr);
-
-            em.flush();
-            em.clear();
+//            Team team = new Team();
+//            team.setName("TeamA");
+//            em.persist(team);
 //
-//            //단방향 검색
+//            Member2 memebr = new Member2();
+//            memebr.setName("member1");
+//            memebr.setTeam(team);
+//            em.persist(memebr);
+//
+//            // 두 클래스 모두에 연관관계 매핑 메서드가 있으면 위험.
+//            // 양방향 매핑시에는 무한루프 조심
+////            team.addMember(memebr);
+//
+//            em.flush();
+//            em.clear();
+////
+////            //단방향 검색
+////            Member2 findMember = em.find(Member2.class, memebr.getId());
+////            Team findTeam = findMember.getTeam();
+////
+////            System.out.println("findTeam = "+findTeam.getName());
+//
+//            //양방향 연관관계 매핑
 //            Member2 findMember = em.find(Member2.class, memebr.getId());
-//            Team findTeam = findMember.getTeam();
+//            List<Member2> members = findMember.getTeam().getMembers();
 //
-//            System.out.println("findTeam = "+findTeam.getName());
+//            for (Member2 m: members) {
+//                System.out.println("m = " +m.getName());
+//            }
 
-            //양방향 연관관계 매핑
-            Member2 findMember = em.find(Member2.class, memebr.getId());
-            List<Member2> members = findMember.getTeam().getMembers();
+            //일대다 매핑
+            Member2 member2 = new Member2();
+            member2.setUsername("member3");
 
-            for (Member2 m: members) {
-                System.out.println("m = " +m.getName());
-            }
+            em.persist(member2);
+
+            Team team = new Team();
+            team.setName("teamC");
+            team.getMembers().add(member2);
+
+            em.persist(team);
 
             tx.commit();
         } catch (Exception e) {
