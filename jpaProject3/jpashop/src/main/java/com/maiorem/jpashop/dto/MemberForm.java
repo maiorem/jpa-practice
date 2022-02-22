@@ -1,4 +1,4 @@
-package com.maiorem.jpashop.controller;
+package com.maiorem.jpashop.dto;
 
 import lombok.Getter;
 import lombok.Setter;
