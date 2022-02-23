@@ -1,6 +1,8 @@
 package com.maiorem;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Member2 {
@@ -28,6 +30,11 @@ public class Member2 {
     @OneToOne
     @JoinColumn(name = "LOCKER_ID")
     private Locker locker;
+
+    //다대다 매핑 (실무사용X)
+    @ManyToMany
+    @JoinTable(name = "MEMBER_PRODUCT")
+    private List<Product> products = new ArrayList<>();
 
     public Long getId() {
         return id;
