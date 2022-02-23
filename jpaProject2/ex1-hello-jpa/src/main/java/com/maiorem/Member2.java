@@ -31,10 +31,14 @@ public class Member2 {
     @JoinColumn(name = "LOCKER_ID")
     private Locker locker;
 
-    //다대다 매핑 (실무사용X)
-    @ManyToMany
-    @JoinTable(name = "MEMBER_PRODUCT")
-    private List<Product> products = new ArrayList<>();
+//    //다대다 매핑 (실무사용X)
+//    @ManyToMany
+//    @JoinTable(name = "MEMBER_PRODUCT")
+//    private List<Product> products = new ArrayList<>();
+
+    //다대다 현실적인 매핑
+    @OneToMany(mappedBy = "member")
+    private List<MemberProduct> memberProducts = new ArrayList<>();
 
     public Long getId() {
         return id;

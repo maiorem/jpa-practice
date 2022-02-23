@@ -1,9 +1,6 @@
 package com.maiorem;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,9 +12,13 @@ public class Product {
 
     private String name;
 
-    //다대다 양방향
-    @ManyToMany(mappedBy = "products")
-    private List<Member2> member2s = new ArrayList<>();
+//    //다대다 양방향
+//    @ManyToMany(mappedBy = "products")
+//    private List<Member2> member2s = new ArrayList<>();
+
+    //다대다 현실적인 매핑
+    @OneToMany(mappedBy = "product")
+    private List<MemberProduct> memberProducts = new ArrayList<>();
 
     public Long getId() {
         return id;
