@@ -28,7 +28,7 @@ public class MemberController {
     @PostMapping("/members/new")
     public String create(@Valid MemberForm form, BindingResult result) {
 
-        //에러를 해당 화면에 뿌려줌
+        //에러를 해당 화면에 뿌려줌 (NotEmpty의 에러메시지)
         if (result.hasErrors()) {
             return "members/createMemberForm";
         }
