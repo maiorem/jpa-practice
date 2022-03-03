@@ -102,16 +102,25 @@ public class JpaMain {
 //            }
 
             //일대다 매핑
-            Member2 member2 = new Member2();
-            member2.setUsername("member3");
+//            Member2 member2 = new Member2();
+//            member2.setUsername("member3");
+//
+//            em.persist(member2);
+//
+//            Team team = new Team();
+//            team.setName("teamC");
+//            team.getMembers().add(member2);
+//
+//            em.persist(team);
 
-            em.persist(member2);
+            //inheritance
+            Movie movie = new Movie();
+            movie.setDirector("aaaa");
+            movie.setActor("nb");
+            movie.setName("밞");
+            movie.setPrice(10000);
 
-            Team team = new Team();
-            team.setName("teamC");
-            team.getMembers().add(member2);
-
-            em.persist(team);
+            em.persist(movie);
 
             tx.commit();
         } catch (Exception e) {
