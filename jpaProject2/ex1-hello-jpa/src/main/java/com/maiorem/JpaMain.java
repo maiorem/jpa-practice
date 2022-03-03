@@ -122,6 +122,13 @@ public class JpaMain {
 
             em.persist(movie);
 
+            em.flush();
+            em.clear();
+
+            //join search
+            Movie findMovie = em.find(Movie.class, movie.getId());
+            System.out.println("findMovie = " + findMovie);
+
             tx.commit();
         } catch (Exception e) {
             tx.rollback();
