@@ -125,7 +125,7 @@ public class JpaMain {
             em.flush();
             em.clear();
 
-            //join search
+            //auto join search
             Movie findMovie = em.find(Movie.class, movie.getId());
             System.out.println("findMovie = " + findMovie);
 
