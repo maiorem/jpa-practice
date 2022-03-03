@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn
+@DiscriminatorColumn //dtype 디폴트는 엔티티명
 public class Item {
 
     @Id @GeneratedValue
