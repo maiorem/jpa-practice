@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 
 @RestController //Controller + ResponseBody
 @RequiredArgsConstructor
@@ -38,6 +39,8 @@ public class MemberApiController {
 
     @Data
     static class CreateMemberRequest {
+        //외부 api 스펙을 엔티티보단 여기서 변경하는게 안전함
+        @NotEmpty
         private String name;
     }
 
