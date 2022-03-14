@@ -29,12 +29,13 @@ public class MemberApiController {
         List<MemberDTO> collect = findMembers.stream()
                 .map(m -> new MemberDTO(m.getName()))
                 .collect(Collectors.toList());
-        return new Result(collect);
+        return new Result(collect.size(), collect);
     }
 
     @Data
     @AllArgsConstructor
     static class Result<T> {
+        private int count; //필드추가
         private T data;
     }
 
