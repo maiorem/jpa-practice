@@ -23,6 +23,7 @@ public class OrderSimpleApiController {
     private final OrderRepository orderRepository;
 
     // 연관관계가 있는 객체들이 지연로딩 상태이므로 ByteBuddyIntercepter에서 객체를 생성하여 에러 발생
+    // -> 지연로딩의 문제를 피하려고 즉시로딩을 하면 연관관계 매핑이 필요 없는 경우에도 무조건 데이터 조회를 하기 때문에 반드시 성능 문제가 발생!
     // -> Hibernate5 modules 라이브러리 등록 (디폴트 : 지연로딩 무시)
     // 엔티티 직접 노출로 인한 위험문제
     @GetMapping("/api/v1/simple-orders")
