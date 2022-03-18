@@ -1,14 +1,19 @@
 package com.maiorem.jpashop.api;
 
 
+import com.maiorem.jpashop.domain.Address;
 import com.maiorem.jpashop.domain.Order;
 import com.maiorem.jpashop.domain.OrderSearch;
+import com.maiorem.jpashop.domain.OrderStatus;
 import com.maiorem.jpashop.repository.OrderRepository;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Order 조회
@@ -36,6 +41,34 @@ public class OrderSimpleApiController {
             order.getDelivery().getAddress();
         }
         return all;
+    }
+
+    // 엔티티 노출을 피하기 위해 DTO로 변환
+    @GetMapping("/api/v2/simple-orders")
+    public List<SimpleOrderDto> ordersV2(){
+        List<Order> orders = orderRepository.findAllByString(new OrderSearch());
+        List<SimpleOrderDto> result = orders.stream()
+                .map(o -> new SimpleOrderDto(o))
+                .collect(Collectors.toList());
+        return result;
+    }
+    
+
+    @Data
+    static class SimpleOrderDto {
+        private Long orderId;
+        private String name;
+        private LocalDateTime orderDate;
+        private OrderStatus orderStatus;
+        private Address address;
+
+        public SimpleOrderDto(Order order) {
+            orderId = order.getId();
+            name = order.getMember().getName();
+            orderDate = order.getOrderDate();
+            orderStatus = order.getStatus();
+            address = order.getDelivery().getAddress();
+        }
     }
 
 
