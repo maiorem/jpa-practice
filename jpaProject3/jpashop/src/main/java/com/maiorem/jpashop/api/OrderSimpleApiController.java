@@ -38,7 +38,7 @@ public class OrderSimpleApiController {
         //전체 강제지연로딩을 끄고 원하는 객체만 지연로딩 하는 법
         for (Order order : all) {
             order.getMember().getName(); // LAZY 강제 초기화
-            order.getDelivery().getAddress();
+            order.getDelivery().getAddress(); // LAZY 강제 초기화
         }
         return all;
     }
@@ -64,10 +64,10 @@ public class OrderSimpleApiController {
 
         public SimpleOrderDto(Order order) {
             orderId = order.getId();
-            name = order.getMember().getName();
+            name = order.getMember().getName(); //LAZY 초기화
             orderDate = order.getOrderDate();
             orderStatus = order.getStatus();
-            address = order.getDelivery().getAddress();
+            address = order.getDelivery().getAddress(); //LAZY 초기화
         }
     }
 
