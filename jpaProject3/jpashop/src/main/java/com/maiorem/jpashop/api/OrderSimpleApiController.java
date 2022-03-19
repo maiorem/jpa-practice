@@ -44,6 +44,7 @@ public class OrderSimpleApiController {
     }
 
     // 엔티티 노출을 피하기 위해 DTO로 변환
+    // 쿼리가 너무 많이 나가기 때문에 성능 문제가 있음
     @GetMapping("/api/v2/simple-orders")
     public List<SimpleOrderDto> ordersV2(){
         List<Order> orders = orderRepository.findAllByString(new OrderSearch());
@@ -52,7 +53,19 @@ public class OrderSimpleApiController {
                 .collect(Collectors.toList());
         return result;
     }
-    
+
+
+    // 패치 조인으로 쿼리를 한번으로 줄임
+    @GetMapping("/api/v3/simple-orders")
+    public List<SimpleOrderDto> ordersV3(){
+        List<Order> orders = orderRepository.findAllWithMemberDelivery();
+        List<SimpleOrderDto> result = orders.stream()
+                .map(o -> new SimpleOrderDto(o))
+                .collect(Collectors.toList());
+        return result;
+    }
+
+
 
     @Data
     static class SimpleOrderDto {

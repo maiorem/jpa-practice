@@ -99,5 +99,18 @@ public class OrderRepository {
     }
     //===========>> 둘 다 유지보수성이 떨어짐
     //대신 QueryDsl 사용
+
+
+    // fetch join
+    public List<Order> findAllWithMemberDelivery() {
+
+        return em.createQuery(
+                "select o from Order o" +
+                        " join fetch o.member m" +
+                        " join fetch o.delivery d", Order.class
+        ).getResultList();
+
+    }
+
     
 }
