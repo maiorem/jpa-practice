@@ -2,6 +2,7 @@ package com.maiorem.jpashop.repository;
 
 import com.maiorem.jpashop.domain.Order;
 import com.maiorem.jpashop.domain.OrderSearch;
+import com.maiorem.jpashop.dto.OrderSimpleQueryDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
@@ -112,5 +113,13 @@ public class OrderRepository {
 
     }
 
-    
+
+    public List<OrderSimpleQueryDto> findOrderDto() {
+        return em.createQuery(
+                "select new com.maiorem.jpashop.dto.OrderSimpleQueryDto(o.id, m.name, o.orderDate, o.status, d.address)" +
+                        " from Order o" +
+                        " join o.member m" +
+                        " join o.delivery d", OrderSimpleQueryDto.class)
+                .getResultList();
+    }
 }

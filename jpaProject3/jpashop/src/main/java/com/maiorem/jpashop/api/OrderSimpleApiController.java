@@ -5,6 +5,7 @@ import com.maiorem.jpashop.domain.Address;
 import com.maiorem.jpashop.domain.Order;
 import com.maiorem.jpashop.domain.OrderSearch;
 import com.maiorem.jpashop.domain.OrderStatus;
+import com.maiorem.jpashop.dto.OrderSimpleQueryDto;
 import com.maiorem.jpashop.repository.OrderRepository;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -55,7 +56,7 @@ public class OrderSimpleApiController {
     }
 
 
-    // 패치 조인으로 쿼리를 한번으로 줄임
+    // 패치조인으로 쿼리를 한번으로 줄임
     @GetMapping("/api/v3/simple-orders")
     public List<SimpleOrderDto> ordersV3(){
         List<Order> orders = orderRepository.findAllWithMemberDelivery();
@@ -65,6 +66,11 @@ public class OrderSimpleApiController {
         return result;
     }
 
+    // 패치조인으로 튜닝된 쿼리를 바로 DTO로 전환
+    @GetMapping("/api/v4/simple-orders")
+    public List<OrderSimpleQueryDto> ordersV4(){
+        return orderRepository.findOrderDto();
+    }
 
 
     @Data
