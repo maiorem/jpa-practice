@@ -66,7 +66,9 @@ public class OrderSimpleApiController {
         return result;
     }
 
-    // 패치조인으로 튜닝된 쿼리를 바로 DTO로 전환
+    // 패치조인으로 튜닝된 쿼리를 바로 DTO로 전환 (new 명령어로 JPQL 결과를 DTO로 즉시 변환)
+    // select 쿼리에서 원하는 데이터를 직접 선택하기 때문에 DB -> 애플리케이션 네트워크 용량 최적화됨
+    // 단점 : 레포지토리 재사용성이 떨어짐. API 스펠에 맞춘 코드가 레포지토리에 들어감
     @GetMapping("/api/v4/simple-orders")
     public List<OrderSimpleQueryDto> ordersV4(){
         return orderRepository.findOrderDto();
