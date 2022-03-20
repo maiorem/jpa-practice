@@ -1,4 +1,4 @@
-package com.maiorem.jpashop.dto;
+package com.maiorem.jpashop.repository.order.simplequery;
 
 import com.maiorem.jpashop.domain.Address;
 import com.maiorem.jpashop.domain.Order;
