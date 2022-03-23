@@ -83,4 +83,17 @@ public class OrderApiController {
 
     }
 
+    // 일대다 컬렉션 페치조인 (distinct로 중복조회 방지)
+    // 단점 : 페이징 불가능 (limit 쿼리가 없음) => 메모리에 페치조인과 페이징이 같이 적용됨. out of memory!
+    // 컬렉션 페치조인은 1개만 사용 가능. 둘 이상 사용하면 데이터가 부정합하게 조회될 수 있음
+    @GetMapping("/api/v3/orders")
+    public List<OrderDto> ordersV3() {
+        List<Order> orders = orderRepository.findAllWithItem();
+        
+        List<OrderDto> collect = orders.stream()
+                .map(order -> new OrderDto(order))
+                .collect(Collectors.toList());
+        return collect;
+    }
+
 }

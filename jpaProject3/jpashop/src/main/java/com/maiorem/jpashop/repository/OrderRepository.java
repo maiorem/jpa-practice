@@ -1,5 +1,6 @@
 package com.maiorem.jpashop.repository;
 
+import com.maiorem.jpashop.api.OrderApiController;
 import com.maiorem.jpashop.domain.Order;
 import com.maiorem.jpashop.domain.OrderSearch;
 import lombok.RequiredArgsConstructor;
@@ -112,4 +113,15 @@ public class OrderRepository {
 
     }
 
+    public List<Order> findAllWithItem() {
+
+        // distinct를 넣지 않으면 order가 orderitem이 참조하는 만큼 중복 발생함
+        return em.createQuery(
+                "select distinct o from Order o" +
+                        " join fetch o.member m" +
+                        " join fetch  o.delivery d" +
+                        " join fetch o.orderItems oi" +
+                        " join fetch oi.item i", Order.class)
+                .getResultList();
+    }
 }
