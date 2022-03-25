@@ -10,7 +10,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@BatchSize(size = 100) // 컬렉션이 아닌 경우엔 엔티티에 적용
+//@BatchSize(size = 100) // 컬렉션이 아닌 경우엔 엔티티에 적용
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE) //상속 타입 : 싱글 테이블 전략
 @DiscriminatorColumn(name = "dtype")

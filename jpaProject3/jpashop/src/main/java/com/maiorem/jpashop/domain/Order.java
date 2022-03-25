@@ -25,9 +25,10 @@ public class Order {
     @JoinColumn(name = "member_id")
     private Member member;
 
+
+//    @BatchSize(size = 100) //in 쿼리 디테일 적용(컬렉션의 경우)
     //OneToMany의 Fetch 디폴트 전략은 LAZY라 바꿀 필요 없음
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    @BatchSize(size = 100) //in 쿼리 디테일 적용(컬렉션의 경우)
     private List<OrderItem> orderItems = new ArrayList<>();
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL) //일대일 관계에서의 연관관계의 주인

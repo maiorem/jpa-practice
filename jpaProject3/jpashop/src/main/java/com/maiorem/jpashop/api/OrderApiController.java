@@ -101,8 +101,9 @@ public class OrderApiController {
     /**
      * 페이징 한계돌파 방법
      * 1. ToOne 관계는 전부 페치조인을 건다. (ToOne은 페치조인이 이어져도 데이터가 증가하지 않으므로 페이징에 영향을 주지 않는다)
-     * 2. application.yml에서 default_batch_fetch_size 옵션 : where ~ in 쿼리의 갯수 -> 글로벌 적용
-     *  => 디테일하게 적용하고 싶으면 해당 엔티티 참조에 @BatchSize를 넣어주기
+     * 2. 컬렉션은 지연로딩 조회
+     * 3. 지연로딩 성능 최적화를 위해 application.yml에서 default_batch_fetch_size 옵션 : where ~ in 쿼리의 갯수 -> 글로벌 적용
+     *  => 디테일하게 적용하고 싶으면 해당 엔티티에 개별적으로 @BatchSize를 넣어주기
      */
     @GetMapping("/api/v3.1/orders")
     public List<OrderDto> ordersV3_1(
