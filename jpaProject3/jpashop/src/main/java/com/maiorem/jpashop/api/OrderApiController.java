@@ -5,6 +5,7 @@ import com.maiorem.jpashop.repository.OrderRepository;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
@@ -90,6 +91,26 @@ public class OrderApiController {
     public List<OrderDto> ordersV3() {
         List<Order> orders = orderRepository.findAllWithItem();
         
+        List<OrderDto> collect = orders.stream()
+                .map(order -> new OrderDto(order))
+                .collect(Collectors.toList());
+        return collect;
+    }
+
+
+    /**
+     * 페이징 한계돌파 방법
+     * 1. ToOne 관계는 전부 페치조인을 건다. (ToOne은 페치조인이 이어져도 데이터가 증가하지 않으므로 페이징에 영향을 주지 않는다)
+     * 2. application.yml에서 default_batch_fetch_size 옵션 : where ~ in 쿼리의 갯수
+     */
+    @GetMapping("/api/v3.1/orders")
+    public List<OrderDto> ordersV3_1(
+            @RequestParam(value = "offset", defaultValue = "0") int offset,
+            @RequestParam(value = "limit", defaultValue = "100") int limit) {
+        //ToOne 관계에 걸린 데이터를 페치조인으로 가져 옴
+        //파람으로 가져온 firstresult와 maxresult로 페이징
+        List<Order> orders = orderRepository.findAllWithMemberDelivery(offset, limit);
+
         List<OrderDto> collect = orders.stream()
                 .map(order -> new OrderDto(order))
                 .collect(Collectors.toList());
