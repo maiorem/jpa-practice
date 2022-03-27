@@ -46,15 +46,21 @@ public class OrderQueryRepository {
 
     public List<OrderQueryDto> findAllByDto_optimization() {
 
-        //주문을 가져오고
+        //주문들을 가져오고
         List<OrderQueryDto> result = findOrders();
 
-        //오더 아이디 리스트를 만들어서
-        List<Long> orderIds = result.stream()
-                .map(o -> o.getOrderId())
-                .collect(Collectors.toList());
+        //주문에 포함된 오더 아이디들로 리스트를 만들어서
+        List<Long> orderIds = toOrderIds(result);
 
         //오더 아이디 리스트를 in 쿼리를 통해 파라미터 인자로 넣어줌 (쿼리 루프를 돌리지 않아도 됨)
+        Map<Long, List<OrderItemQueryDto>> orderItemMap = findOrderItemMap(orderIds);
+
+        result.forEach(o -> o.setOrderItems(orderItemMap.get(o.getOrderId())));
+
+        return result;
+    }
+
+    private Map<Long, List<OrderItemQueryDto>> findOrderItemMap(List<Long> orderIds) {
         List<OrderItemQueryDto> orderItems = em.createQuery(
                         "select new com.maiorem.jpashop.repository.order.query.OrderItemQueryDto(oi.order.id, i.name, oi.orderPrice, oi.count)" +
                                 " from OrderItem oi" +
@@ -66,9 +72,13 @@ public class OrderQueryRepository {
 
         Map<Long, List<OrderItemQueryDto>> orderItemMap = orderItems.stream()
                 .collect(Collectors.groupingBy(orderItemQueryDto -> orderItemQueryDto.getOrderId()));
+        return orderItemMap;
+    }
 
-        result.forEach(o -> o.setOrderItems(orderItemMap.get(o.getOrderId())));
-
-        return result;
+    private List<Long> toOrderIds(List<OrderQueryDto> result) {
+        List<Long> orderIds = result.stream()
+                .map(o -> o.getOrderId())
+                .collect(Collectors.toList());
+        return orderIds;
     }
 }
