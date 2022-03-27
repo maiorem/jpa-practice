@@ -54,7 +54,7 @@ public class OrderQueryRepository {
                 .map(o -> o.getOrderId())
                 .collect(Collectors.toList());
 
-        //오더 아이디 리스트를 파라미터 인자로 넣어줌 (쿼리 루프를 돌리지 않아도 됨)
+        //오더 아이디 리스트를 in 쿼리를 통해 파라미터 인자로 넣어줌 (쿼리 루프를 돌리지 않아도 됨)
         List<OrderItemQueryDto> orderItems = em.createQuery(
                         "select new com.maiorem.jpashop.repository.order.query.OrderItemQueryDto(oi.order.id, i.name, oi.orderPrice, oi.count)" +
                                 " from OrderItem oi" +
@@ -62,8 +62,8 @@ public class OrderQueryRepository {
                                 " where oi.order.id in :orderIds", OrderItemQueryDto.class)
                 .setParameter("orderIds", orderIds)
                 .getResultList();
-        // 여기까지 쿼리 2번
-        
+        // 여기까지 쿼리 2번으로 최적화
+
         Map<Long, List<OrderItemQueryDto>> orderItemMap = orderItems.stream()
                 .collect(Collectors.groupingBy(orderItemQueryDto -> orderItemQueryDto.getOrderId()));
 
