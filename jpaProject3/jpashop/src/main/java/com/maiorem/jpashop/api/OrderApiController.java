@@ -2,6 +2,7 @@ package com.maiorem.jpashop.api;
 
 import com.maiorem.jpashop.domain.*;
 import com.maiorem.jpashop.repository.OrderRepository;
+import com.maiorem.jpashop.repository.order.query.OrderFlatDto;
 import com.maiorem.jpashop.repository.order.query.OrderQueryDto;
 import com.maiorem.jpashop.repository.order.query.OrderQueryRepository;
 import lombok.Data;
@@ -131,6 +132,11 @@ public class OrderApiController {
     @GetMapping("/api/v5/orders")
     public List<OrderQueryDto> ordersV5() {
         return orderQueryRepository.findAllByDto_optimization();
+    }
+
+    @GetMapping("/api/v6/orders")
+    public List<OrderFlatDto> ordersV6() {
+        return orderQueryRepository.findAllByDto_flat();
     }
 
 }
