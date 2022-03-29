@@ -82,7 +82,8 @@ public class OrderQueryRepository {
         return orderIds;
     }
 
-    // 두번 나가는 쿼리도 한번으로 최적화
+    // 두번 나가는 쿼리도 한번으로 최적화 (일대다 조인으로 다에 맞춰 중복데이터가 존재)
+    // 페이징은 가능하지만 원하는 방식은 아님...
     public List<OrderFlatDto> findAllByDto_flat() {
         return em.createQuery(
                 "select new com.maiorem.jpashop.repository.order.query.OrderFlatDto(o.id, m.name, o.orderDate, o.status, d.address, i.name, oi.orderPrice, oi.count)" +
@@ -94,4 +95,6 @@ public class OrderQueryRepository {
                 .getResultList();
 
     }
+
+
 }
