@@ -2,9 +2,8 @@ package com.maiorem.jpashop.service;
 
 import com.maiorem.jpashop.domain.Member;
 import com.maiorem.jpashop.repository.MemberRepository;
-import lombok.AllArgsConstructor;
+import com.maiorem.jpashop.repository.MemberRepositoryOld;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -48,12 +47,12 @@ public class MemberService {
 
     //회원 단건 조회 //읽기전용
     public Member findOne(Long memberId) {
-        return memberRepository.findOne(memberId);
+        return memberRepository.findById(memberId).get();
     }
 
     @Transactional
     public void update(Long id, String name) {
-        Member member = memberRepository.findOne(id);
+        Member member = memberRepository.findById(id).get();
         member.setName(name);
     }
 }
