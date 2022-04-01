@@ -6,6 +6,8 @@ import com.maiorem.jpashop.repository.order.query.OrderFlatDto;
 import com.maiorem.jpashop.repository.order.query.OrderItemQueryDto;
 import com.maiorem.jpashop.repository.order.query.OrderQueryDto;
 import com.maiorem.jpashop.repository.order.query.OrderQueryRepository;
+import com.maiorem.jpashop.service.query.OrderDto;
+import com.maiorem.jpashop.service.query.OrderQueryService;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -91,17 +93,18 @@ public class OrderApiController {
 
     }
 
+
+
     // 일대다 컬렉션 페치조인 (distinct로 중복조회 방지)
     // 단점 : 페이징 불가능 (limit 쿼리가 없음) => 메모리에 페치조인과 페이징이 같이 적용됨. out of memory!
     // 컬렉션 페치조인은 1개만 사용 가능. 둘 이상 사용하면 데이터가 부정합하게 조회될 수 있음
+    // ++ OSIV를 꺼도 트랜잭션 안에서 지연로딩을 처리하면 잘 돌아감
+    private final OrderQueryService orderQueryService;
+
     @GetMapping("/api/v3/orders")
-    public List<OrderDto> ordersV3() {
-        List<Order> orders = orderRepository.findAllWithItem();
-        
-        List<OrderDto> collect = orders.stream()
-                .map(order -> new OrderDto(order))
-                .collect(toList());
-        return collect;
+    public List<com.maiorem.jpashop.service.query.OrderDto> ordersV3() {
+        List<com.maiorem.jpashop.service.query.OrderDto> orders = orderQueryService.ordersV3();
+        return orders;
     }
 
 
