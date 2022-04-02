@@ -1,8 +1,10 @@
 package com.maiorem.jpashop.repository;
 
 import com.maiorem.jpashop.api.OrderApiController;
+import com.maiorem.jpashop.domain.*;
 import com.maiorem.jpashop.domain.Order;
-import com.maiorem.jpashop.domain.OrderSearch;
+import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
@@ -100,6 +102,31 @@ public class OrderRepository {
     }
     //===========>> 둘 다 유지보수성이 떨어짐
     //대신 QueryDsl 사용
+
+    /**
+     * QueryDsl
+     */
+    public List<Order> findAll(OrderSearch orderSearch) {
+        JPAQueryFactory query = new JPAQueryFactory(em);
+        QOrder order = QOrder.order;
+        QMember member = QMember.member;
+
+        return query
+                .select(order)
+                .from(order)
+                .join(order.member, member)
+                .where(statusEq(orderSearch.getOrderStatus()))
+                .limit(1000)
+                .fetch();
+    }
+
+    private BooleanExpression statusEq(OrderStatus statusCond) {
+        if (statusCond == null) {
+            return null;
+        }
+        return QOrder.order.status.eq(statusCond);
+    }
+
 
 
     // fetch join
