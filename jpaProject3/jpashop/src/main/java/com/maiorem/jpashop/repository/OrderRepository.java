@@ -15,11 +15,21 @@ import javax.persistence.criteria.*;
 import java.util.ArrayList;
 import java.util.List;
 
+//QueryDsl static import
+import static com.maiorem.jpashop.domain.QMember.member;
+import static com.maiorem.jpashop.domain.QOrder.order;
+
+
 @Repository
-@RequiredArgsConstructor
 public class OrderRepository {
 
     private final EntityManager em;
+    private final JPAQueryFactory query;
+
+    public OrderRepository(EntityManager em) {
+        this.em = em;
+        this.query = new JPAQueryFactory(em);
+    }
 
     public void save(Order order) {
        em.persist(order);
@@ -104,12 +114,9 @@ public class OrderRepository {
     //대신 QueryDsl 사용
 
     /**
-     * QueryDsl
+     * QueryDsl 동적쿼리
      */
     public List<Order> findAll(OrderSearch orderSearch) {
-        JPAQueryFactory query = new JPAQueryFactory(em);
-        QOrder order = QOrder.order;
-        QMember member = QMember.member;
 
         return query
                 .select(order)
