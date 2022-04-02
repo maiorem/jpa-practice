@@ -115,9 +115,16 @@ public class OrderRepository {
                 .select(order)
                 .from(order)
                 .join(order.member, member)
-                .where(statusEq(orderSearch.getOrderStatus()))
+                .where(statusEq(orderSearch.getOrderStatus()), nameLike(orderSearch, member))
                 .limit(1000)
                 .fetch();
+    }
+
+    private BooleanExpression nameLike(OrderSearch orderSearch, QMember member) {
+        if (!StringUtils.hasText(orderSearch.getMemberName())) {
+            return null;
+        }
+        return member.name.like(orderSearch.getMemberName());
     }
 
     private BooleanExpression statusEq(OrderStatus statusCond) {
