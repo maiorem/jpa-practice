@@ -15,6 +15,12 @@ spring:
       hibernate:
 #        show_sql: true
         format_sql: true
+        default_batch_fetch_size : 100
+    open-in-view: false
+    # 그냥 끄면 could not initialize proxy - no session 에러 발생(영속성 컨텍스트가 다 날아감)
+    # 해결 방법
+    # 트랜잭션 안에서 지연로딩이 처리되도록 함
+    # ===> Command와 Query를 분리 (Service : 핵심 비즈니스 로직 / QueryService : 화면 혹은 API에 맞춘 Service, 읽기전용 트랜잭션)
 
 logging:
   level:

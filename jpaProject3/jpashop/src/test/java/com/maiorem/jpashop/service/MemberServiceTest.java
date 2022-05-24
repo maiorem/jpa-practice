@@ -1,7 +1,7 @@
 package com.maiorem.jpashop.service;
 
 import com.maiorem.jpashop.domain.Member;
-import com.maiorem.jpashop.repository.MemberRepository;
+import com.maiorem.jpashop.repository.MemberRepositoryOld;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class MemberServiceTest {
 
     @Autowired MemberService memberService;
-    @Autowired MemberRepository memberRepository;
+    @Autowired
+    MemberRepositoryOld memberRepository;
     @Autowired EntityManager em;
 
     @Test
