@@ -10,7 +10,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ApplicationContextSameBeanFindTest {
 
@@ -22,6 +22,15 @@ public class ApplicationContextSameBeanFindTest {
         assertThrows(NoUniqueBeanDefinitionException.class, () ->
                 ac.getBean(MemberRepository.class));
     }
+
+    @Test
+    @DisplayName("타입으로 조회시 같은 타입이 둘 이상 있으면, 빈 이름을 지정하면 된다")
+    void findBeanByName() {
+        MemberRepository memberRepostory = ac.getBean("memberRepository2", MemberRepository.class);
+        assertInstanceOf(MemberRepository.class, memberRepostory);
+    }
+
+
 
     @Configuration
     static class SameBeanConfig {
