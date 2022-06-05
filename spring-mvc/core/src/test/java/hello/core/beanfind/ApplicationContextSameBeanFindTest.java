@@ -37,9 +37,12 @@ public class ApplicationContextSameBeanFindTest {
     void findAllBeanByType(){
         Map<String, MemberRepository> beansOfType = ac.getBeansOfType(MemberRepository.class);
         for (String key : beansOfType.keySet()) {
-            System.out.println("key  = " + key + " value : " + beansOfType);
-            assertEquals(beansOfType.size(), 2);
+            System.out.println("key  = " + key + " value : " + beansOfType.get(key));
+
         }
+        System.out.println("beansOfType = " + beansOfType);
+        assertEquals(beansOfType.size(), 2);
+
     }
 
     @Configuration
