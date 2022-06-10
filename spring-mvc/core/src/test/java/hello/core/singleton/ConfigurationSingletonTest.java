@@ -40,4 +40,14 @@ public class ConfigurationSingletonTest {
         // ===> memberRepository 가 한번만 호출됨
     }
 
+
+    @Test
+    void configurationDeep() {
+        ApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.class);
+        AppConfig bean = ac.getBean(AppConfig.class);
+
+        System.out.println("bean = " + bean.getClass());
+
+    }
+
 }
