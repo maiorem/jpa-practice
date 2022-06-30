@@ -22,21 +22,21 @@ public class OrderServiceImpl implements OrderService{
 
     // 인터페이스에만 의존하는 설계
 //    @Autowired // 의존관계를 필드에 바로 주입(권장X - 외부 변경이 불가능함)
-    private MemberRepository memberRepository;
+    private final MemberRepository memberRepository;
 //    @Autowired
-    private DiscountPolicy discountPolicy;
+    private final DiscountPolicy discountPolicy;
 
 
-    // 수정자(세터)를 통한 주입
-    @Autowired(required = false) //true면 주입할 대상이 없을 때 오류가 발생함. false면 주입할 대상이 없어도 동작.
-    public void setMemberRepository(MemberRepository memberRepository) {
-        this.memberRepository = memberRepository;
-    }
-
-    @Autowired
-    public void setDiscountPolicy(DiscountPolicy discountPolicy) {
-        this.discountPolicy = discountPolicy;
-    }
+//    // 수정자(세터)를 통한 주입
+//    @Autowired(required = false) //true면 주입할 대상이 없을 때 오류가 발생함. false면 주입할 대상이 없어도 동작.
+//    public void setMemberRepository(MemberRepository memberRepository) {
+//        this.memberRepository = memberRepository;
+//    }
+//
+//    @Autowired
+//    public void setDiscountPolicy(DiscountPolicy discountPolicy) {
+//        this.discountPolicy = discountPolicy;
+//    }
 
     // 생성자를 통한 주입(연결). 생성자가 하나면 Autowired 없어도 됨
 //    @Autowired
@@ -47,11 +47,11 @@ public class OrderServiceImpl implements OrderService{
 
 
     // 일반 메서드를 통한 주입
-    @Autowired
-    public void init(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
-        this.memberRepository = memberRepository;
-        this.discountPolicy = discountPolicy;
-    }
+//    @Autowired
+//    public void init(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+//        this.memberRepository = memberRepository;
+//        this.discountPolicy = discountPolicy;
+//    }
 
     @Override
     public Order createOrder(Long memberId, String itemName, int itemPrice) {
