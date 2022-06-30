@@ -45,7 +45,7 @@ public class OrderServiceImpl implements OrderService{
     // RequiredArgsConstructor 와 중복. 해당 롬복이 있으면 지워도 됨
     // 자동 주입 되는 빈 컴포넌트가 두개인 경우 Qualifier로 지정 가능
     @Autowired
-    public OrderServiceImpl(MemberRepository memberRepository, @Qualifier("mainDiscountPolicy") DiscountPolicy discountPolicy) {
+    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;
     }
