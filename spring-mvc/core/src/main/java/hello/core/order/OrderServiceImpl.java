@@ -27,17 +27,17 @@ public class OrderServiceImpl implements OrderService{
     private DiscountPolicy discountPolicy;
 
 
-//    // 수정자(세터)를 통한 주입
-//    @Autowired(required = false) //true면 주입할 대상이 없을 때 오류가 발생함. false면 주입할 대상이 없어도 동작.
-//    public void setMemberRepository(MemberRepository memberRepository) {
-//        this.memberRepository = memberRepository;
-//    }
-//
-//    @Autowired
-//    public void setDiscountPolicy(DiscountPolicy discountPolicy) {
-//        this.discountPolicy = discountPolicy;
-//    }
-//
+    // 수정자(세터)를 통한 주입
+    @Autowired(required = false) //true면 주입할 대상이 없을 때 오류가 발생함. false면 주입할 대상이 없어도 동작.
+    public void setMemberRepository(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
+    }
+
+    @Autowired
+    public void setDiscountPolicy(DiscountPolicy discountPolicy) {
+        this.discountPolicy = discountPolicy;
+    }
+
     // 생성자를 통한 주입(연결). 생성자가 하나면 Autowired 없어도 됨
 //    @Autowired
     public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
