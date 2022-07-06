@@ -43,9 +43,10 @@ public class OrderServiceImpl implements OrderService{
 
     // 생성자를 통한 주입(연결). 생성자가 하나면 Autowired 없어도 됨
     // RequiredArgsConstructor 와 중복. 해당 롬복이 있으면 지워도 됨
-    // 자동 주입 되는 빈 컴포넌트가 두개인 경우 Qualifier로 지정 가능
+    // 자동 주입 되는 빈 컴포넌트가 두개인 경우 @Qualifier로 지정 가능 (사용자 정의 어노테이션으로도 지정 가능)
+    // 혹은 해당 컴포넌트에 @Primary를 써서 최우선 컴포넌트를 지정해도 됨
 //    @Autowired
-//    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+//    public OrderServiceImpl(MemberRepository memberRepository, @MainDiscountPolicy DiscountPolicy discountPolicy) {
 //        this.memberRepository = memberRepository;
 //        this.discountPolicy = discountPolicy;
 //    }
