@@ -9,9 +9,9 @@ import org.springframework.stereotype.Component;
 
 
 //@Qualifier("mainDiscountPolicy") // 이름으로 지정
-//@Primary // 최우선 컴포넌트로 지정
+@Primary // 최우선 컴포넌트로 지정
+//@MainDiscountPolicy //사용자 정의 어노테이션
 @Component
-@MainDiscountPolicy //사용자 정의 어노테이션
 public class RateDiscountPolicy implements DiscountPolicy {
 
     private int discountPercent = 10;
