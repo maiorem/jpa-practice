@@ -17,7 +17,10 @@ public class BeanLifeCycleTest {
 
     @Configuration
     static class LifeCycleConfig {
-        @Bean
+        
+        // 메서드를 통한 빈 등록 초기화, 소멸
+        // 소멸 메서드는 자동으로 close와 shutdown 등의 메서드명을 추론하도록 (inferred) 되어 있으므로 입력하지 않아도 됨.
+        @Bean(initMethod = "init", destroyMethod = "close")
         public NetworkClient networkClient() {
             NetworkClient networkClient = new NetworkClient();
             networkClient.setUrl("http://hello-spring.dev");
